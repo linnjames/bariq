@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- Top menu item -->
+    <record id="view_kitchen_chef_tree" model="ir.ui.view">
+        <field name="name">kitchen.chef.tree</field>
+        <field name="model">kitchen.chef</field>
+        <field name="priority">2</field>
+        <field name="arch" type="xml">
+            <tree string="Kitchen Chef" sample="1">
+                <field name="name"/>
+                <field name="company_id"/>
+                <field name="branch_id"/>
+            </tree>
+        </field>
+    </record>
+    <record id="view_kitchen_chef_form" model="ir.ui.view">
+        <field name="name">kitchen.chef.form</field>
+        <field name="model">kitchen.chef</field>
+        <field name="arch" type="xml">
+            <form string="Kitchen Chef">
+                <sheet>
+                    <group>
+                        <field name="name"/>
+                        <field name="company_id"/>
+                        <field name="product_category" widget="many2many_tags"/>
+                        <field name="branch_id"/>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+    <record id="view_kitchen_chef_filter" model="ir.ui.view">
+        <field name="name">kitchen.chef.list.select</field>
+        <field name="model">kitchen.chef</field>
+        <field name="priority" eval="15"/>
+        <field name="arch" type="xml">
+            <search string="Search Kitchen chef">
+                <field name="name" string="Chef"/>
+                <field name="company_id"/>
+                <field name="branch_id"/>
+            </search>
+        </field>
+    </record>
+    <record id="action_kitchen_chef" model="ir.actions.act_window">
+        <field name="name">Kitchen Chef</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">kitchen.chef</field>
+        <field name="view_mode">tree,form</field>
+        <field name="search_view_id" ref="base_customisation.view_kitchen_chef_filter"/>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                Create a new Kitchen Chef, the first step of a new Kitchen!
+            </p>
+        </field>
+    </record>
+    <menuitem id="kitchen_chef_menu" name="Kitchen Chef" parent="sale.sale_order_menu" action="base_customisation.action_kitchen_chef" sequence="13"/>
+</odoo>

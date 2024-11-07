@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_kitchen_order_form" model="ir.ui.view">
+        <field name="name">kitchen.order.process</field>
+        <field name="model">kitchen.order.process</field>
+        <field name="arch" type="xml">
+            <form string="Kitchen Order Process">
+                <h3>Kitchen Order Process</h3>
+                <field name="kitchen_order_process_line_ids" nolabel="1">
+                    <tree editable="botttom">
+                        <field name="product_id"/>
+                        <field name="total_qty"/>
+                        <field name="product_category_id"/>
+                        <field name="kitchen_chef_id"/>
+                    </tree>
+                </field>
+                <footer>
+                    <button name="process_kitchen_order" string="Process Kitchen Order" type="object" class="btn-primary"/>
+                    <button string="Cancel" class="btn-secondary" special="cancel"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+    <record id="action_kitchen_order_process" model="ir.actions.act_window">
+        <field name="name">Process Kitchen Order</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">kitchen.order.process</field>
+        <field name="view_mode">form</field>
+        <field name="target">new</field>
+        <field name="binding_model_id" ref="sale.model_sale_order"/>
+        <field name="binding_view_types">list</field>
+    </record>
+</odoo>

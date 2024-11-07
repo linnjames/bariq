@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates id="template" xml:space="preserve">
+
+    <t t-name="BiReceiptScreen" owl="1">
+        <div class="receipt-screen screen">
+            <div class="screen-content">
+                <div class="top-content">
+                    <div class="top-content-center">
+                    </div>
+                    <div class="button next" t-att-class="{ highlight: !locked }"
+                        t-on-click="orderDone">
+                        Close
+                        <i class="fa fa-angle-double-right"/>
+                    </div>
+                </div>
+                <div class="default-view">
+                    <div class="actions">
+                        <h1>How would you like to receive your Session receipt ?</h1>
+                        <div class="buttons">
+                            <div class="button print" t-on-click="printReceipt">
+                                <i class="fa fa-print"/> Print Receipt
+                            </div>
+                        </div>
+                        <form class="send-email">
+                            <div class="input-email">
+                                <input type="email" placeholder="Email Receipt" id="email" />
+                                <button type="submit" t-on-click="onSendEmailToCustomer"
+                                            style="padding: 1rem 40px; margin: 2px; border: none; cursor: pointer;
+                                            background: #E0E2E6;color: #000000;">
+                                    <i class="fa fa-paper-plane"/>
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+                    <t t-set="daata" t-value="my_method2()"/>
+                    <t t-set="current_date_time" t-value="current_datetime()"/>
+                    <t t-set="session_start_time" t-value="session_start_time()"/>
+                    <t t-set="payment_daata" t-value="get_payment_data()"/>
+                    <t t-set="session_price_list" t-value="get_pricelist()"/>
+                    <div class="pos-receipt-container">
+                        <t t-log="state"/>
+                        <BiOrderReceipt order="currentOrder" t-ref="order-receipt"
+                                session_data="state.main_session_data"
+                                date_time_current="state.current_datetime"
+                                session_payment_data="state.payment_data"
+                                pricelist="state.state_price_list"
+                                session_start_time="state.session_start_time"/>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </t>
+
+</templates>

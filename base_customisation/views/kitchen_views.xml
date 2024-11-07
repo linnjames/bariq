@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- Top menu item -->
+    <record id="view_kitchen_order_tree" model="ir.ui.view">
+        <field name="name">kitchen.order.tree</field>
+        <field name="model">kitchen.order</field>
+        <field name="priority">2</field>
+        <field name="arch" type="xml">
+            <tree string="Kitchen Orders" sample="1"
+                decoration-success="is_outgoing_stock"
+                decoration-danger="is_incomming_stock"
+                decoration-info="state == 'draft'">
+                <field name="sale_order_line_ids" invisible="0" widget="many2many_tags"/>
+                <field name="name" string="Number" readonly="1" decoration-bf="1"/>
+                <field name="date_order" string="Order Date" widget="date"/>
+                <field name="user_id"/>
+                <field name="kitchen_qty"/>
+                <field name="state" invisible="0"/>
+                <field name="company_id"/>
+                <field name="branch_id"/>
+                <field name="is_outgoing_stock" invisible="1"/>
+                <field name="is_incomming_stock" invisible="1"/>
+            </tree>
+        </field>
+    </record>
+    <record id="view_kitchen_orders_form" model="ir.ui.view">
+        <field name="name">kitchen.order.form</field>
+        <field name="model">kitchen.order</field>
+        <field name="arch" type="xml">
+            <form string="Kitchen Order">
+                <header>
+                    <button name="action_process_order" type="object" string="Process Order" class="oe_highlight" attrs="{'invisible': [('state', 'not in', ['draft'])]}"/>
+                    <button name="action_order_cancel" type="object" string="Cancel Order" class="oe_highlight" attrs="{'invisible': [('state', 'in', ['draft', 'cancel'])]}"/>
+                    <field name="state" widget="statusbar" statusbar_visible="draft,done,cancel"/>
+                </header>
+                <sheet>
+                    <group>
+                        <field name="name"/>
+                        <field name="date_order"/>
+                        <field name="user_id"/>
+                        <field name="kitchen_qty"/>
+                        <field name="product_id"/>
+                        <field name="sale_order_line_ids" invisible="0" widget="many2many_tags"/>
+                        <field name="company_id"/>
+                        <field name="branch_id"/>
+                        <field name="is_outgoing_stock" invisible="1"/>
+                        <field name="is_incomming_stock" invisible="1"/>
+                    </group>
+                </sheet>
+                <div class="oe_chatter">
+                    <field name="message_follower_ids"/>
+                    <field name="activity_ids"/>
+                    <field name="message_ids"/>
+                </div>
+            </form>
+        </field>
+    </record>
+    <record id="view_kitchen_order_filter" model="ir.ui.view">
+        <field name="name">kitchen.order.list.select</field>
+        <field name="model">kitchen.order</field>
+        <field name="priority" eval="15"/>
+        <field name="arch" type="xml">
+            <search string="Search Kitchen Order">
+                <field name="name" string="Kitchen Order" filter_domain="[('name', 'ilike', self)]"/>
+                <field name="company_id"/>
+                <filter name="state" string="Done Order" domain="[('state', '=', 'done')]"/>
+                <filter name="date_filter" string="Today" domain="[('date_order','&gt;=', datetime.datetime.combine(context_today(), datetime.time(0,0,0))),
+                                                                    ('date_order','&lt;=',datetime.datetime.combine(context_today(), datetime.time(23,59,59)))]" />
+                <group expand="0" string="Group By">
+                    <filter string="Order Date" name="order_month" domain="[]" context="{'group_by': 'date_order'}"/>
+                    <field name="state" string="State" filter_domain="[]" context="{'group_by': 'state'}"/>
+                    <field name="user_id" string="SalesPerson" filter_domain="[]" context="{'group_by': 'user_id'}"/>
+                    <field name="company_id" string="Company" filter_domain="[]" context="{'group_by': 'company_id'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+    <record id="action_kitchen_orders" model="ir.actions.act_window">
+        <field name="name">Kitchen Orders</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">kitchen.order</field>
+        <field name="view_mode">tree,form</field>
+        <field name="limit">1000</field>
+        <field name="context">{"search_default_date_filter":1}</field>
+        <field name="search_view_id" ref="base_customisation.view_kitchen_order_filter"/>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                Create a new Kitchen Order, the first step of a new Kitchen!
+            </p>
+        </field>
+    </record>
+    <menuitem id="kitchen_order_menu" name="Kitchen Orders" parent="sale.sale_order_menu" action="base_customisation.action_kitchen_orders" sequence="12"/>
+</odoo>

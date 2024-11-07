@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    The wizard view
+    <record id="product_stock_view_form" model="ir.ui.view">
+        <field name="name">product.stock.view.form</field>
+        <field name="model">product.stock</field>
+        <field name="arch" type="xml">
+            <form>
+                <group>
+                    <group>
+                        <field name="product_id" style="width:55%%"/>
+                        <field name="quantity" style="width:55%%"/>
+                    </group>
+                        <field name="stock_location_ids"/>
+                </group>
+                <footer>
+                    <button name="action_change_product_stock" type="object"
+                            string="Update Stock" class="oe_highlight"/>
+                    <button special="cancel" string="Cancel"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+    Action for product.price
+    <record id="product_stock_action" model="ir.actions.act_window">
+        <field name="name">Update Stock</field>
+        <field name="res_model">product.stock</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="view_mode">form</field>
+        <field name="view_id" ref="product_stock_view_form"/>
+        <field name="target">new</field>
+    </record>
+<!--    Defined menu for product price-->
+    <menuitem id="product_stock_menu"
+              name="Update Stock"
+              parent="stock.menu_stock_inventory_control"
+              action="product_stock_action"
+              groups="product_price_update_advanced.group_update_stock"/>
+
+
+</odoo>

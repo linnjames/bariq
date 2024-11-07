@@ -1,0 +1,155 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <!--category for Menu Access-->
+    <record model="ir.module.category" id="module_menu_visibility_category">
+        <field name="name">Menu Access</field>
+        <field name="sequence">120</field>
+    </record>
+
+    <!--Contact Menu Access-->
+    <record id="contact_view_group" model="res.groups">
+        <field name="name">Contact menu</field>
+        <field name="users" eval="[(4, ref('base.user_admin'))]"/>
+    </record>
+    <record id="contacts.menu_contacts" model="ir.ui.menu">
+        <field name="groups_id" eval="[(6, 0, [ref('fbno_security.contact_view_group')])]"/>
+    </record>
+
+    <!--Manufacturing Menu Access-->
+    <record id="manufacturing_view_group" model="res.groups">
+        <field name="name">Manufacturing menu</field>
+        <field name="users" eval="[(4, ref('base.user_admin'))]"/>
+    </record>
+    <record id="mrp.menu_mrp_root" model="ir.ui.menu">
+        <field name="groups_id" eval="[(6, 0, [ref('fbno_security.manufacturing_view_group')])]"/>
+    </record>
+
+    <!--Attendances Menu Access-->
+    <record id="attendances_view_group" model="res.groups">
+        <field name="name">Attendances menu</field>
+        <field name="users" eval="[(4, ref('base.user_admin'))]"/>
+    </record>
+    <record id="hr_attendance.menu_hr_attendance_root" model="ir.ui.menu">
+        <field name="groups_id" eval="[(6, 0, [ref('fbno_security.attendances_view_group')])]"/>
+    </record>
+
+    <!--Employee Menu Access-->
+    <record id="employee_view_group" model="res.groups">
+        <field name="name">Employee menu</field>
+        <field name="users" eval="[(4, ref('base.user_admin'))]"/>
+    </record>
+    <record id="hr.menu_hr_root" model="ir.ui.menu">
+        <field name="groups_id" eval="[(6, 0, [ref('fbno_security.employee_view_group')])]"/>
+    </record>
+
+    <!--Expenses Menu Access-->
+    <record id="expenses_view_group" model="res.groups">
+        <field name="name">Expenses menu</field>
+        <field name="users" eval="[(4, ref('base.user_admin'))]"/>
+    </record>
+    <record id="hr_expense.menu_hr_expense_root" model="ir.ui.menu">
+        <field name="groups_id" eval="[(6, 0, [ref('fbno_security.expenses_view_group')])]"/>
+    </record>
+
+    <!--Purchase Menu Access-->
+    <record id="group_purchase_view_custom" model="res.groups">
+        <field name="name">Purchase menu</field>
+        <field name="users" eval="[(4, ref('base.user_admin'))]"/>
+    </record>
+    <record id="purchase.menu_purchase_root" model="ir.ui.menu">
+        <field name="groups_id" eval="[(6, 0, [ref('fbno_security.group_purchase_view_custom')])]"/>
+    </record>
+
+    <!--Inventory Menu Access-->
+    <record id="group_stock_view_custom" model="res.groups">
+        <field name="name">Inventory menu</field>
+        <field name="users" eval="[(4, ref('base.user_admin'))]"/>
+    </record>
+    <record id="stock.menu_stock_root" model="ir.ui.menu">
+        <field name="groups_id" eval="[(6, 0, [ref('fbno_security.group_stock_view_custom')])]"/>
+    </record>
+
+    <!--Time off Menu Access-->
+    <record id="group_timeoff_view_custom" model="res.groups">
+        <field name="name">Timeoff menu</field>
+        <field name="users" eval="[(4, ref('base.user_admin'))]"/>
+    </record>
+    <record id="hr_holidays.menu_hr_holidays_root" model="ir.ui.menu">
+        <field name="groups_id" eval="[(6, 0, [ref('fbno_security.group_timeoff_view_custom')])]"/>
+    </record>
+
+    <!--Accounting Menu Access-->
+    <record id="group_accounting_view_custom" model="res.groups">
+        <field name="name">Accounting menu</field>
+        <field name="users" eval="[(4, ref('base.user_admin'))]"/>
+    </record>
+    <record id="account.menu_finance" model="ir.ui.menu">
+        <field name="groups_id" eval="[(6, 0, [ref('fbno_security.group_accounting_view_custom')])]"/>
+    </record>
+
+    <!--Calendar Menu Access-->
+    <record id="group_calendar_view_custom" model="res.groups">
+        <field name="name">Calendar menu</field>
+        <field name="users" eval="[(4, ref('base.user_admin'))]"/>
+    </record>
+    <record id="calendar.mail_menu_calendar" model="ir.ui.menu">
+        <field name="groups_id" eval="[(6, 0, [ref('fbno_security.group_calendar_view_custom')])]"/>
+    </record>
+
+    <!--Discuss Menu Access-->
+    <record id="group_discuss_view_custom" model="res.groups">
+        <field name="name">Discuss menu</field>
+        <field name="users" eval="[(4, ref('base.user_admin'))]"/>
+    </record>
+    <record id="mail.menu_root_discuss" model="ir.ui.menu">
+        <field name="groups_id" eval="[(6, 0, [ref('fbno_security.group_discuss_view_custom')])]"/>
+    </record>
+
+    <!--Payroll Menu Access-->
+    <record id="group_payroll_view_custom" model="res.groups">
+        <field name="name">Payroll menu</field>
+        <field name="users" eval="[(4, ref('base.user_admin'))]"/>
+    </record>
+    <record id="hr_payroll_community.menu_hr_payroll_community_root" model="ir.ui.menu">
+        <field name="groups_id" eval="[(6, 0, [ref('fbno_security.group_payroll_view_custom')])]"/>
+    </record>
+
+    <!--Sale Menu Access-->
+    <record id="group_sale_view_custom" model="res.groups">
+        <field name="name">Sale menu</field>
+        <field name="users" eval="[(4, ref('base.user_admin'))]"/>
+    </record>
+    <record id="sale.sale_menu_root" model="ir.ui.menu">
+        <field name="groups_id" eval="[(6, 0, [ref('fbno_security.group_sale_view_custom')])]"/>
+    </record>
+
+    <!--POS Menu Access-->
+    <record id="group_point_of_sale_view_custom" model="res.groups">
+        <field name="name">Point of Sale menu</field>
+        <field name="users" eval="[(4, ref('base.user_admin'))]"/>
+    </record>
+    <record id="point_of_sale.menu_point_root" model="ir.ui.menu">
+        <field name="groups_id" eval="[(6, 0, [ref('fbno_security.group_point_of_sale_view_custom')])]"/>
+    </record>
+
+    <!--APPS Menu Access-->
+    <record id="group_apps_view_custom" model="res.groups">
+        <field name="name">Apps menu</field>
+        <field name="users" eval="[(4, ref('base.user_admin'))]"/>
+    </record>
+    <record id="base.menu_management" model="ir.ui.menu">
+        <field name="groups_id" eval="[(6, 0, [ref('fbno_security.group_apps_view_custom')])]"/>
+    </record>
+
+    <!--Settings Menu Access-->
+    <record id="group_settings_view_custom" model="res.groups">
+        <field name="name">Settings menu</field>
+        <field name="users" eval="[(4, ref('base.user_admin'))]"/>
+    </record>
+    <record id="base.menu_administration" model="ir.ui.menu">
+        <field name="groups_id" eval="[(6, 0, [ref('fbno_security.group_settings_view_custom')])]"/>
+    </record>
+
+
+</odoo>

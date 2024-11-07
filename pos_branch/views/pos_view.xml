@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="view_res_branch_form" model="ir.ui.view">
+            <field name="name">res.branch.form</field>
+            <field name="model">res.branch</field>
+            <field name="arch" type="xml">
+                <form string="Branch Information" version="7.0">
+                    <sheet>
+                        <group cols="4">
+                            <group>
+                                <field name="name"/>
+                                <field name="arabic_name"/>
+                                <field name="company_id"/>
+                                <field name="telephone_no"/>
+                            </group>
+                            <group>
+                                <field name="address"/>
+                            </group>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+        <record id="view_res_branch_tree" model="ir.ui.view">
+            <field name="name">res.branch.tree</field>
+            <field name="model">res.branch</field>
+            <field name="arch" type="xml">
+                <tree string="Branch Information">
+                    <field name="name"/>
+                    <field name="arabic_name"/>
+                    <field name="company_id"/>
+                </tree>
+            </field>
+        </record>
+        <record id="view_res_branch_tree_filter" model="ir.ui.view">
+            <field name="name">res.branch.select</field>
+            <field name="model">res.branch</field>
+            <field name="arch" type="xml">
+                <search string="Branch Information">
+                    <field name="name"/>
+                    <field name="arabic_name"/>
+                    <field name="company_id"/>
+                    <group expand="0" string="Group By">
+                        <filter string="Branch" name="branch" domain="[]" context="{'group_by':'name'}"/>
+                        <filter string="Company" name="company_id" domain="[]" context="{'group_by':'company_id'}"/>
+                    </group>
+                </search>
+            </field>
+        </record>
+        <record id="action_res_branch_form" model="ir.actions.act_window">
+            <field name="name">Branch</field>
+            <field name="res_model">res.branch</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+        <menuitem action="action_res_branch_form" id="menu_action_res_branch" parent="base.menu_users"/>
+        <record id="view_user_form_extended" model="ir.ui.view">
+            <field name="name">res.user.form.extended</field>
+            <field name="model">res.users</field>
+            <field name="inherit_id" ref="base.view_users_form"/>
+            <field name="arch" type="xml">
+                <group name="preferences" position="before">
+                    <group>
+                        <group colspan="4" string='Allowed Branches'>
+                            <field name="branch_ids" widget="many2many_tags"/>
+                            <field name="branch_id" options="{'no_create': True}" domain="[('id','in',branch_ids)]"/>
+                            <field name="is_branch_user" invisible="1"/>
+                        </group>
+                    </group>
+                </group>
+            </field>
+        </record>
+    </data>
+</odoo>

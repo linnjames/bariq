@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_ko_internal_transfer_form" model="ir.ui.view">
+        <field name="name">ko.internal.transfer</field>
+        <field name="model">ko.internal.transfer</field>
+        <field name="arch" type="xml">
+            <form string="Internal Transfer">
+                <h3>Internal Transfer</h3>
+                <footer>
+                    <button name="process_ko_internal_transfer" string="Process Kitchen Order" type="object" class="btn-primary"/>
+                    <button string="Cancel" class="btn-secondary" special="cancel"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+    <record id="action_ko_process_internal_transfer" model="ir.actions.act_window">
+        <field name="name">Process Internal Transfer</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">ko.internal.transfer</field>
+        <field name="view_mode">form</field>
+        <field name="target">new</field>
+        <field name="binding_model_id" ref="base_customisation.model_kitchen_order"/>
+        <field name="binding_view_types">list</field>
+    </record>
+</odoo>

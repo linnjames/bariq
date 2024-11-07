@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data noupdate="0">
+        <!-- Multi - Company Rules -->
+        <record model="ir.rule" id="kitchen_order_comp_rule">
+            <field name="name">Kitchen Order multi-company</field>
+            <field name="model_id" ref="model_kitchen_order"/>
+            <field name="domain_force">[('company_id', 'in', company_ids)]</field>
+        </record>
+        <record model="ir.rule" id="kitchen_chef_comp_rule">
+            <field name="name">Kitchen Chef multi-company</field>
+            <field name="model_id" ref="model_kitchen_chef"/>
+            <field name="domain_force">[('company_id', 'in', company_ids)]</field>
+        </record>
+        <!-- =================== sale order ======================== -->
+        <record id="sale_order_branch_manager_rule" model="ir.rule">
+            <field name="name">Sale Order Branch Manager</field>
+            <field name="model_id" ref="sale.model_sale_order"/>
+            <field name="global" eval="True"/>
+            <field name="domain_force">[(1,'=',1)]</field>
+            <field name="groups" eval="[(4, ref('pos_branch.group_branch_user_manager'))]"/>
+        </record>
+        <record id="sale_order_branch_user_rule" model="ir.rule">
+            <field name="name">Sale Order Branch User</field>
+            <field name="model_id" ref="sale.model_sale_order"/>
+            <field name="global" eval="True"/>
+            <field name="domain_force">['|', ('branch_id','=',False),('branch_id','=',user.branch_id.id)]</field>
+            <field name="groups" eval="[(4, ref('pos_branch.group_branch_user'))]"/>
+        </record>
+        <record id="sale_order_non_branch_user_rule" model="ir.rule">
+            <field name="name">Sale Order Non Branch User</field>
+            <field name="model_id" ref="sale.model_sale_order"/>
+            <field name="global" eval="True"/>
+            <field name="domain_force">[('branch_id','=',False)]</field>
+            <field name="groups" eval="[(4, ref('pos_branch.group_no_branch_user'))]"/>
+        </record>
+        <!-- =================== Kitchen order ======================== -->
+        <record id="kitchen_order_branch_manager_rule" model="ir.rule">
+            <field name="name">Kitchen Order Branch Manager</field>
+            <field name="model_id" ref="model_kitchen_order"/>
+            <field name="global" eval="True"/>
+            <field name="domain_force">[(1,'=',1)]</field>
+            <field name="groups" eval="[(4, ref('pos_branch.group_branch_user_manager'))]"/>
+        </record>
+        <record id="kitchen_order_branch_user_rule" model="ir.rule">
+            <field name="name">Kitchen Order Branch User</field>
+            <field name="model_id" ref="model_kitchen_order"/>
+            <field name="global" eval="True"/>
+            <field name="domain_force">['|', ('branch_id','=',False),('branch_id','=',user.branch_id.id)]</field>
+            <field name="groups" eval="[(4, ref('pos_branch.group_branch_user'))]"/>
+        </record>
+        <record id="kitchen_order_non_branch_user_rule" model="ir.rule">
+            <field name="name">Kitchen Order Non Branch User</field>
+            <field name="model_id" ref="model_kitchen_order"/>
+            <field name="global" eval="True"/>
+            <field name="domain_force">[('branch_id','=',False)]</field>
+            <field name="groups" eval="[(4, ref('pos_branch.group_no_branch_user'))]"/>
+        </record>
+        <record model="res.groups" id="group_fully_inv_button_manager">
+            <field name="name">Fully invoice button</field>
+        </record>
+    </data>
+</odoo>

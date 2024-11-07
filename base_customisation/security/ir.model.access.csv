@@ -1,0 +1,7 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_kitchen_order,kitchen.order,model_kitchen_order,,1,1,1,1
+access_kitchen_order_process,kitchen.order.process,model_kitchen_order_process,,1,1,1,1
+access_kitchen_order_process_line,kitchen.order.process.line,model_kitchen_order_process_line,,1,1,1,1
+access_kitchen_chef,kitchen.chef,model_kitchen_chef,,1,1,1,1
+access_ko_internal_transfer,ko.internal.transfer,model_ko_internal_transfer,,1,1,1,1
+access_ko_print,ko.print,model_kitchen_order_print,,1,1,1,1

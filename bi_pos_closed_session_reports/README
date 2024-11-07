@@ -1,0 +1,40 @@
+Date :-15th Dec 2021.
+version:- 15.0.0.1
+improvment point:-
+        --> add a Control button and print Pdf Report of current session Data.
+-------------------------------------------------------------------------------.
+
+Date :-21st Dec 2021.
+version:- 15.0.0.2
+improvment point:-
+        -->Added Controll button print report but in total and category print value but it is long value
+             show in the after deciman point so solve it . 2 digit show in the report
+-------------------------------------------------------------------------------.
+
+=> 15.0.0.3 : Improved an index as per latest improvements.
+
+Date :-14/06/2022.
+version:- 15.0.0.4
+        -- When we click on view_session_report button that time get an traceback fixed that issue.
+
+Date :-16/08/2022.
+version:- 15.0.0.5
+        For the posted session report change paper formate.
+
+
+Version 15.0.0.6 : (02-02-2023)
+        - Update close session report in this payment method details comes wrong fixed that issue.
+
+Version 15.0.0.7 : (07-08-2023)
+    * - Improvement :
+        -  Add extra configurations for displaying category, product-wise, customer-wise, and payment-wise on the report
+        - Allow posted session report - Used to see reports for posted one
+        - Report Type - Used to print the report on receipt or PDF or both
+        
+=> 15.0.0.8 : Improved an index as per latest improvements.
+
+=> 15.0.0.9 (23/11/23) : 
+        -Report on time is not perfect and database was crash while print the report so solved that issue.
+
+=> 15.0.1.0 (20/12/23) : 
+        -In all reports session start and close time is not perfect so solved that issue.

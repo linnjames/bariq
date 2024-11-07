@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates id="template" xml:space="preserve">
+
+
+    <t t-name="UOMButton1" owl="1">
+        <div class="control-button">
+            <span class="multi-uom-span" aria-label="Info" title="Info">
+                Expenses Test
+            </span>
+        </div>
+    </t>
+
+    <t t-name="PayPartialPaymentPopupWidget" owl="1">
+        <div class="modal-dialog multi-uom">
+            <div class="popup popup-confirm" style="height: 300px !important;">
+				<p class="title" style="background-color: rgb(110,200,155); color: #fff;">Pay Partial Payment</p>
+				<p class="body" style="color: #0075AC;"><span>Enter Your Partial Amount</span>
+				 <input id ="entered_amount" type="text" class="input-field" name="code" style="margin-top: 10px;"></input><br/>
+				<select name="payment_type" id="payment_type" style="width: 370px;height: 40px;">
+					<option value="Bank">Bank</option>
+					<option value="Cash">Cash</option>
+					<option value="POS">POS</option>
+			  	</select>
+				</p>
+				<div class="footer" style="background-color: rgb(110,200,155); color: #fff;">
+					<div class="button cancel" t-on-click="click_cancel" style="background-color: #0075AC; color: #fff;">
+						Cancel
+					</div>
+					<div class="button confirm" t-on-click="click_confirm" style="background-color: #0075AC; color: #fff;">
+						Pay
+					</div>
+				</div>
+			</div>
+        </div>
+    </t>
+
+</templates>

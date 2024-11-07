@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates id="bi_pos_session_report" inherit_id="point_of_sale.template" xml:space="preserve">
+    <t t-name="SelectionSession" owl="1">
+		<div role="dialog" class="modal-dialog">
+			<div class="popup popup-confirm">
+				<p class="title" style="color: #000000b5;">
+					<t t-esc="props.title" />
+				</p>
+				<div class="body" style="color:black;">
+					<div class="table-data">
+						Select Session :
+						<t t-if="env.pos.sessions_list.length > 0">
+							<select name="Select" id="Select" class="user-selection"
+									style="border: none; background: white; padding: 5px; padding-right: 45px;
+												font-size: 15px; font-weight: unset;margin-left: 10px;">
+								<option value="">Please Choose </option>
+								<t t-foreach="env.pos.sessions_list" t-as="session" t-key="session.id">
+									<t t-if="session.state == 'closed'">
+										<option t-att-value='session.id'>
+											<t t-esc="session.display_name"/>
+										</option>
+									</t>
+								</t>
+							</select>
+						</t>
+					</div>
+                </div>
+				<div class="footer">
+					<div class="button confirm" style="background: rgb(110 200 155) !important;color: black;"
+						 	t-on-click="confirm_session">
+						<t t-esc="props.confirmText" />
+					</div>
+					<div class="button cancel" style="color: black;" t-on-click="cancel">
+						<t t-esc="props.cancelText" />
+					</div>
+				</div>
+			</div>
+		</div>
+	</t>
+</templates>

@@ -1,0 +1,5 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_vat_report_wizard,vat.report.wizard,model_vat_report_wizard,base.group_user,1,1,1,1
+access_vat_report_download,account_vat_report_download,model_od_vat_report_download,,1,1,1,1
+
+

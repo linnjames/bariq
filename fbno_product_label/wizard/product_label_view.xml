@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="product_label_layout_form_custom" model="ir.ui.view">
+        <field name="name">product.label.layout.form.custom</field>
+        <field name="model">product.label.layout.custom</field>
+        <field name="mode">primary</field>
+        <field name="arch" type="xml">
+            <form>
+                <group>
+                    <group>
+                        <field name="custom_quantity"/>
+                        <field name="print_format" widget="radio"/>
+
+                    </group>
+                    <group class="right">
+                        <field name="custom_page_size"/>
+                        <field name="height" attrs="{'invisible': [('custom_page_size', '!=', True)]}" />
+                        <field name="width" attrs="{'invisible': [('custom_page_size', '!=', True)]}"/>
+                    </group>
+                </group>
+                <footer>
+                    <button name="process" string="Confirm" type="object" class="btn-primary"/>
+                    <button string="Discard" class="btn-secondary" special="cancel"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+</odoo>

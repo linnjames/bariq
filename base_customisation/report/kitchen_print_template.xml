@@ -1,0 +1,147 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="kitchen_print">
+<!--        <t t-foreach="res_company" t-as="data">-->
+                 <t t-foreach="docs" t-as="o">
+                <t t-call="web.html_container">
+                    <t t-call="web.internal_layout">
+<!--                        <div class="col-3">-->
+<!--                            <strong style="font-size:25px;">Branch:</strong>-->
+<!--                            <p style="font-size:25px;" t-esc="o.branch.name"/>-->
+<!--                        </div>-->
+                        <strong style="font-size:25px;margin-left:20px;">Chef : </strong><p style="margin-left:20px;font-size:25px;" t-esc="o.chef_id.name"/>
+                        <div class="row">
+                        <div style="margin-left:20px;">
+                            <t t-if="o.from_date">
+                                <strong style="font-size:25px;">Date from :</strong>
+                                <span style="font-size:25px;" t-esc="o.from_date" t-options="{'widget': 'datetime'}"/>
+                            </t>
+                            <br/>
+                            <t t-if="o.to_date">
+                                <strong style="font-size:25px;">Date to :</strong>
+                                <span style="font-size:25px;" t-esc="o.to_date" t-options="{'widget': 'datetime'}"/>
+                            </t>
+                        </div>
+                    </div>
+
+                                    <br/><br/>
+                    <div class="page">
+                        <div></div>
+                        <div class="row">
+                            <div >
+                            <section>
+                                <table  class="table table-borderless" style="margin-left:20px; position: absolute;font-size:25px;">
+                                    <thead><tr>
+                                        <th>Item</th>
+                                    </tr></thead>
+                                    <tbody>
+                                        <tr>
+                                            <t t-foreach="o.get_record()" t-as="datas">
+                                                <tr>
+                                                    <td> <t t-esc="datas['products']" /></td>
+                                                </tr>
+                                            </t>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                                <table  class="table table-borderless" style="margin-left:500px; position: absolute;font-size:25px;">
+                                    <thead><tr>
+                                        <th>Qty</th>
+                                    </tr></thead>
+                                    <tbody>
+                                        <tr>
+                                            <t t-foreach="o.product_qty_sorted()" t-as="datas">
+                                                <tr>
+                                                    <td> <t t-esc="datas['qty']" /></td>
+                                                </tr>
+                                            </t>
+                                        </tr>
+                                        <tr>
+                                            <td style="font-weight:bolder;"> <t t-esc="o.qty_total" /></td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                                <table  class="table table-borderless" style="margin-left:700px; font-size:25px;">
+                                    <thead><tr>
+                                        <th>Total Amount</th>
+                                    </tr></thead>
+                                    <tbody>
+                                        <tr>
+                                            <t t-foreach="o.product_subtotal_sorted()" t-as="datas">
+                                                <tr>
+                                                    <td> <t t-esc="'%.2f'% datas['subtotal']" /></td>
+                                                </tr>
+                                            </t>
+                                        </tr>
+                                        <tr>
+                                            <td style="font-weight:bolder;"> <t t-esc="'%.2f'% o.amt_total" /></td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+
+<!--                                <table  class="table table-borderless" style="margin-left:700px; position: absolute;font-size:25px;">-->
+<!--                                    <thead><tr>-->
+<!--                                        <th>Net Amount</th>-->
+<!--                                    </tr></thead>-->
+<!--                                    <tbody>-->
+<!--                                        <tr>-->
+<!--                                            <t t-foreach="o.product_price_sorted()" t-as="datas">-->
+<!--                                                <tr>-->
+<!--                                                    <td> <t t-esc="'%.2f'% datas['price']" /></td>-->
+<!--                                                </tr>-->
+<!--                                            </t>-->
+<!--                                        </tr>-->
+<!--                                        <tr>-->
+<!--                                            <td style="font-weight:bolder;"> <t t-esc="'%.2f'% o.net_total" /></td>-->
+<!--                                        </tr>-->
+<!--                                    </tbody>-->
+<!--                                </table>-->
+<!--                                <table  class="table table-borderless" style="margin-left:900px; position: absolute;font-size:25px;">-->
+<!--                                    <thead><tr>-->
+<!--                                        <th>VAT Amount</th>-->
+<!--                                    </tr></thead>-->
+<!--                                    <tbody>-->
+<!--                                        <tr>-->
+<!--                                            <t t-foreach="o.product_tax_sorted()" t-as="datas">-->
+<!--                                                <tr>-->
+<!--                                                    <td> <t t-esc="'%.2f'% datas['tax']" /></td>-->
+<!--                                                </tr>-->
+<!--                                            </t>-->
+<!--                                        </tr>-->
+<!--                                        <tr>-->
+<!--                                            <td style="font-weight:bolder;"> <t t-esc="'%.2f'% o.vat_total" /></td>-->
+<!--                                        </tr>-->
+<!--                                    </tbody>-->
+<!--                                </table>-->
+
+
+                            </section>
+<!--                                <section>-->
+<!--                                <table  class="table table-borderless" style="margin-top:130px;margin-left:1130px; position: absolute;font-size:25px;">-->
+
+<!--                                    <tbody>-->
+<!--                                        <tr>-->
+<!--                                                <tr>-->
+<!--                                                    <td> <t t-esc="o.amt_total" /></td>-->
+<!--                                                </tr>-->
+<!--                                        </tr>-->
+<!--                                    </tbody>-->
+<!--                                </table>-->
+
+<!--                            </section>-->
+                            </div>
+                        </div>
+<!--                        </t>-->
+                    </div>
+<!--                    <div class="footer text-center" >-->
+<!--                         <div style="border-top: 1px solid black;"/>-->
+<!--                        <ul class="list-inline">-->
+<!--                            Page:  <span class="page"/> of <span class="topage"/>-->
+<!--                        </ul>-->
+<!--                    </div>-->
+                    </t>
+                </t>
+                </t>
+<!--                </t>-->
+    </template>
+</odoo>

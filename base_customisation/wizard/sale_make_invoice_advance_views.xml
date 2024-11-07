@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_sale_advance_payment_inv" model="ir.ui.view">
+        <field name="name">Invoice Orders</field>
+        <field name="model">sale.advance.payment.inv</field>
+        <field name="inherit_id" ref="sale.view_sale_advance_payment_inv"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='advance_payment_method']" position="before">
+                <h5 style="color: red;" attrs="{'invisible': [('product_ids', '=', [])]}">
+            <p>Complete Products in the Sale's Order are not done Internal Transfer.
+                <field name="product_ids" widget="many2many_tags" readonly="1"/>
+            </p>
+            </h5>
+                <field name="ko_invoice_policy" attrs="{'invisible': [('product_ids', '=', [])]}"/>
+            </xpath>
+        </field>
+    </record>
+</odoo>

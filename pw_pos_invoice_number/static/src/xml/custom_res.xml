@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates id="template" xml:space="preserve">
+    <t t-inherit="point_of_sale.OrderReceipt" t-inherit-mode="extension" owl="1">
+        <xpath expr="//t[@t-esc='tax.name']/.." position="replace"/>
+        <xpath expr="//span[@t-esc='env.pos.format_currency(receipt.total_tax)']/.." position="replace"/>
+        <xpath expr="//div[@class='pos-receipt-amount pos-receipt-amount-arabic' and contains(text(), 'TOTAL')]"
+               position="before">
+            <t t-if="isTaxIncluded">
+                <t t-foreach="receipt.tax_details" t-as="tax" t-key="tax.name">
+                    <div t-if="receipt.is_gcc_country" t-translation="off">
+                        <t t-esc="tax.name"/>
+                        <span t-esc="env.pos.format_currency_no_symbol(tax.amount)" class="pos-receipt-right-align"/>
+                    </div>
+                </t>
+                <div t-if="receipt.is_gcc_country" t-translation="off">
+                    Total Taxes / إجمالي الضرائب
+                    <span t-esc="env.pos.format_currency(receipt.total_tax)" class="pos-receipt-right-align"/>
+                </div>
+            </t>
+        </xpath>
+    </t>
+</templates>
+
+

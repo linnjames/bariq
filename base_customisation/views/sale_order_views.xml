@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="sale_order_view_inherit_barcode1" model="ir.ui.view">
+        <field name="name">sale.order.form.inherit</field>
+        <field name="model">sale.order</field>
+        <field name="inherit_id" ref="sale.view_order_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//form/header/button[@name='action_cancel']" position="before">
+                <button name="print_pro_forma" string="PRO-FORMA Invoice" type="object" class="btn-primary"/>
+            </xpath>
+            <xpath expr="//form/header/button[@name='action_cancel']" position="after">
+                <button name="fully_invoiced_button" string="Fully invoiced" type="object" class="btn-danger" attrs="{'invisible': [('invoice_status', '=', ('invoiced'))]}" groups="base_customisation.group_fully_inv_button_manager"/>
+            </xpath>
+             <xpath expr="//field[@name='date_order']" position="after">
+                <field name="inv_date" invisible="1"/>
+            </xpath>
+            <xpath expr="//div[hasclass('o_td_label')]" position="attributes">
+                <attribute name="groups">base.group_user</attribute>
+            </xpath>
+            <xpath expr="//field[@name='date_order']" position="attributes">
+                <attribute name="groups">base.group_user</attribute>
+            </xpath>
+            <xpath expr="//field[@name='order_line']/tree/field[@name='product_id']" position="before">
+<!--                <field name="sl_no" />-->
+                <field name="barcode_scan" optional="hide"/>
+            </xpath>
+            <xpath expr="//field[@name='order_line']/tree/field[@name='product_template_id']" position="attributes">
+                <attribute name="options">{'no_open': True, 'no_create': True, 'no_edit': True}</attribute>
+            </xpath>
+            <xpath expr="//field[@name='order_line']/tree/field[@name='name']" position="attributes">
+                <attribute name="optional">hide</attribute>
+            </xpath>
+            <xpath expr="//field[@name='order_line']/tree/field[@name='product_packaging_qty']" position="attributes">
+                <attribute name="optional">hide</attribute>
+            </xpath>
+            <xpath expr="//field[@name='order_line']/tree/field[@name='product_packaging_id']" position="attributes">
+                <attribute name="optional">hide</attribute>
+            </xpath>
+            <xpath expr="//field[@name='order_line']/tree/field[@name='product_id']" position="after">
+                <field name="order_date" invisible="1"/>
+                <field name="branch_id" invisible="1"/>
+                <field name="is_ko_transfer" invisible="1"/>
+            </xpath>
+            <xpath expr="//form/header/button[@id='action_confirm']" position="replace"/>
+            <xpath expr="//form/header/button[@name='action_confirm']" position="replace"/>
+            <xpath expr="//form/header/button[@name='%(sale.action_view_sale_advance_payment_inv)d']" position="replace"/>
+            <xpath expr="//form/header/button[@name='%(sale.action_view_sale_advance_payment_inv)d']" position="replace"/>
+            <xpath expr="//form/header/button[@name='payment_action_void']" position="after">
+                <field name="is_ko_invoice" invisible="1"/>
+                <button name="%(sale.action_view_sale_advance_payment_inv)d" string="Create Invoice" type="action" class="btn-primary" data-hotkey="q" attrs="{'invisible': ['|', ('is_ko_invoice', '=', False), ('invoice_status', '=', 'invoiced')]}"/>
+            </xpath>
+        </field>
+    </record>
+    <record id="view_sales_order_filter_inh" model="ir.ui.view">
+        <field name="name">sale.order.list.select</field>
+        <field name="model">sale.order</field>
+        <field name="inherit_id" ref="sale.view_sales_order_filter"/>
+        <field name="arch" type="xml">
+            <search string="Search Sales Order">
+                <filter name="date_filter" string="Today" domain="[('date_order', '&gt;=', datetime.datetime.now().strftime('%Y-%m-%d 00:00:00')),('date_order', '&lt;=',datetime.datetime.now().strftime('%Y-%m-%d 23:23:59'))]"/>
+                <field name="branch_id"/>
+                <group expand="0" string="Group By">
+                    <filter string="Branch" name="branch_id" domain="[]" context="{'group_by': 'branch_id'}"/>
+                    <filter string="Date" name="date_order" domain="[]" context="{'group_by': 'date_order:day'}"/>
+                </group>
+           </search>
+        </field>
+    </record>
+    <record id="view_sales_order_tree_inh" model="ir.ui.view">
+        <field name="name">sale.order.tree.inherit.custom</field>
+        <field name="model">sale.order</field>
+        <field name="inherit_id" ref="sale.view_order_tree"/>
+        <field name="arch" type="xml">
+            <xpath expr="//tree" position="attributes">
+                <attribute name="default_order">date_order desc</attribute>
+            </xpath>
+        </field>
+    </record>
+    <!--Hide 'Quotation' menu-->
+    <menuitem id="sale.menu_sale_quotations" action="sale.action_quotations_with_onboarding" parent="sale.sale_order_menu" active="False" sequence="1" groups="sales_team.group_sale_salesman"/>
+    <!--Hide 'Quotation Template' field-->
+    <record id="sale_order_form_quote_ext" model="ir.ui.view">
+        <field name="name">sale.order.form.payment</field>
+        <field name="model">sale.order</field>
+        <field name="inherit_id" ref="sale_management.sale_order_form_quote"/>
+        <field name="arch" type="xml">
+            <field name="sale_order_template_id" position="replace"/>
+        </field>
+    </record>
+    <record id="sale.action_orders" model="ir.actions.act_window">
+        <field name="domain">[]</field>
+        <field name="context">{"search_default_date_order":1}</field>
+    </record>
+</odoo>

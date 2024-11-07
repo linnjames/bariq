@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <data>
+        <template id="report_product_label_38*28">
+            <t t-call="web.basic_layout">
+                <t t-foreach="docs" t-as="product">
+                    <div style="page-break-before: always;">
+                        <div class="o_label_dymo" t-att-style="padding_page">
+                            <div class="o_label_full" t-att-style="table_style">
+                                <t t-if="product.company_id">
+                                    <div style="font-size: 7px;background-color: transparent;text-align:center;">
+                                        <span t-field="product.company_id"/>
+                                    </div>
+                                </t>
+                                <div style="font-size:7px;background-color: transparent;text-align:center;">
+                                    <span t-field="product.name"/>
+                                </div>
+                                <div class=" o_label_small_barcode" style="text-align:center;">
+                                    <div class="text-right" style="margin-top:5px;margin-right:-5px;font-size:7px">
+                                        <t t-if="product.is_product_variant">
+                                            <strong class="o_label_price_small" t-field="product.list_price"
+                                                    t-options="{'widget': 'monetary'}"/>
+                                        </t>
+                                        <t t-else="">
+                                            <strong class="o_label_price_small" t-field="product.list_price"
+                                                    t-options="{'widget': 'monetary'}"/>
+                                            <div style="font-size:5px;">شامل الضريبة</div>
+                                        </t>
+                                    </div>
+                                    <t t-if="product.mf_date">
+                                        <div class="text-left"
+                                             style="margin-top:-15px;margin-left:-9px;font-size:7px">
+                                            <b>Mfd :
+                                                <span t-field="product.expiry_date"
+                                                      t-options='{"widget": "date", "format": "dd/MM/yyyy"}'/>
+                                            </b>
+                                            <br/>
+                                            <b>Exp :
+                                                <span t-field="product.mf_date"
+                                                      t-options='{"widget": "date", "format": "dd/MM/yyyy"}'/>
+                                            </b>
+                                        </div>
+                                    </t>
+                                    <div style="height:5px;">
+                                        <span style="font-size:7px;" t-field="product.barcode"/>
+                                    </div>
+                                </div>
+                                <br/>
+                                <t t-if="product.barcode">
+                                    <img t-att-src="'/report/barcode/?type=%s&amp;value=%s&amp;width=%s&amp;height=%s' % ('Code128', product.barcode, 600, 150)"
+                                         style="width:120%;height:2rem;margin-left:-10px;margin-top: -17px;"/>
+                                </t>
+                            </div>
+                        </div>
+                    </div>
+                </t>
+            </t>
+        </template>
+        <template id="product_label_template_custom_38x28">
+            <t t-call="web.html_container">
+                <t t-foreach="docs" t-as="o">
+                    <t t-foreach="o.report_quantity()" t-as="data">
+                        <t t-set="qty" t-value="data['qty']"/>
+                        <t t-foreach="range(qty)" t-as="item">
+                            <t t-foreach="docs" t-as="doc">
+                                <t t-call="fbno_product_label.report_product_label_38*28"/>
+                            </t>
+                        </t>
+                    </t>
+                </t>
+            </t>
+        </template>
+    </data>
+</odoo>

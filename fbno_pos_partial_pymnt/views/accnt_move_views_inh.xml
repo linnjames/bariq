@@ -1,0 +1,101 @@
+<odoo>
+  <data>
+	  <record model="ir.ui.view" id="pos_partial_payment_res_partner">
+			<field name="name">pos.partial.payment.res.partner</field>
+			<field name="model">res.partner</field>
+			<field name="inherit_id" ref="point_of_sale.view_partner_property_form"/>
+			<field name="arch" type="xml">
+				<field name="barcode" position="after">
+					<field name="custom_credit"/>
+					<field name="allow_credit"/>
+					<field name="allow_over_limit"/>
+					<field name="limit_credit" attrs="{'invisible': [('allow_over_limit','=', False)]}"/>
+				</field>
+			</field>
+		</record>
+
+    <record model="ir.ui.view" id="credit_detail_button_res_partner">
+			<field name="name">credit.detail.button.res.partner</field>
+			<field name="model">res.partner</field>
+			<field name="inherit_id" ref="base.view_partner_form"/>
+			<field name="arch" type="xml">
+				<div name="button_box" position="inside">
+					<button class="oe_stat_button" name="action_view_credit_detail"
+						type="object" icon="fa-usd">
+						<field string="Credit" name="custom_credit" widget="statinfo" />
+					</button>
+				</div>
+			</field>
+		</record>
+
+	  <record id="inherit_view_account_journal_pos_user_form1" model="ir.ui.view">
+			<field name="name">inherit_bi_account_journal_form</field>
+			<field name="model">account.journal</field>
+			<field name="inherit_id" ref="account.view_account_journal_form"/>
+			<field name="arch" type="xml">
+				<field name="type" position="after">
+					<field name="is_credit"/>
+				</field>
+			</field>
+		</record>
+
+		<record id="inherit_view_account_journal_pos_user_form11" model="ir.ui.view">
+			<field name="name">inherit_bi_account_journal_form1</field>
+			<field name="model">account.move</field>
+			<field name="inherit_id" ref="account.view_move_form"/>
+			<field name="arch" type="xml">
+				<field name="ref" position="after">
+					<field name="payment_type"/>
+				</field>
+			</field>
+		</record>
+
+		<record id="inherit_view_pp_pos_payment_method_form" model="ir.ui.view">
+			<field name="name">pos.payment.method.inherit</field>
+			<field name="model">pos.payment.method</field>
+			<field name="inherit_id" ref="point_of_sale.pos_payment_method_view_form"/>
+			<field name="arch" type="xml">
+				<field name="journal_id" position="after">
+					<field name="is_credit"/>
+				</field>
+			</field>
+		</record>
+
+	  <record model="ir.ui.view" id="view_inherit_pos_config_pay">
+			<field name="name">inherit.pos.config</field>
+			<field name="model">pos.config</field>
+			<field name="inherit_id" ref="point_of_sale.pos_config_view_form"/>
+			<field name="arch" type="xml">
+				<data>
+					<xpath expr="//div[@id='receipt']" position="after">
+						<h2>Credit Payment</h2>
+						<div class="row mt16 o_settings_container" id="credit_payment_journal">
+							<div id="creadit_payment_journal_view" class="col-12 col-lg-6 o_setting_box">
+								<div class="o_setting_right_pane">
+									<span class="o_form_label" >Partial Payment Journal</span>
+									<div class="content-group mt16">
+										<field name="partial_journal_id"/>
+									</div>
+								</div>
+							</div>
+						</div>
+					</xpath>
+					<xpath expr="//div[@id='receipt']" position='inside'>
+						<div class="col-12 col-lg-6 o_setting_box" id="automate_check_invoice">
+							<div class="o_setting_left_pane">
+								<field name="invoice_auto_check"/>
+							</div>
+							<div class="o_setting_right_pane">
+								<label for="invoice_auto_check">Auto Check Invoice Button</label>
+								<div class="text-muted">
+									Auto check the invoice button
+								</div>
+							</div>
+						</div>
+					</xpath>
+				</data>
+			</field>
+		</record>
+
+  </data>
+</odoo>

@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+        <!-- 2 days old instance log record automatic clear -->
+        <record model="ir.cron" id="ir_cron_instance_log_auto_delete">
+            <field name="name">Instance Log Auto Delete</field>
+            <field name="model_id" ref="model_terminal_log"/>
+            <field name="state">code</field>
+            <field name="code">model._auto_delete_records()</field>
+            <field name="interval_number">2</field>
+            <field name="interval_type">days</field>
+            <field name="numbercall">-1</field>
+            <field name="active" eval="True"/>
+        </record>
+
+    </data>
+</odoo>
